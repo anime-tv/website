@@ -11,8 +11,8 @@ export default function Search() {
   const [data, setData] = useState(null)
 
   useEffect(() => {
-    if (router.query.title) {
-      search(router.query.title).then(setData)
+    if (router.query.q) {
+      search(router.query.q).then(setData)
     }
   }, [router])
 
