@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 
 import { recents } from '@/api'
 
-import Header from '@/components/Header'
+import Header from '@/components/Header/Header'
+import Footer from '@/components/Footer/Footer'
 
 export default function Home() {
   const [data, setData] = useState(null)
@@ -37,6 +38,7 @@ export default function Home() {
             </a>
           ))}
         </ul>
+        <Footer />
       </section>
     </main>
   );
