@@ -25,3 +25,10 @@ export async function details(title) {
 
   return resp.json();
 }
+
+export async function detailsPage(title, page) {
+  const url = `https://animesvision.vercel.app/anime/detalhes?link=https://animes.vision/animes/${title}?page=${page}`;
+  const resp = await fetch(url);
+
+  return resp.json();
+}

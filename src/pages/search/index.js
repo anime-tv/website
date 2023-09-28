@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { search } from '@/api/index'
 
 import Header from "@/components/Header/Header"
+import Footer from '@/components/Footer/Footer'
 
 export default function Search() {
   const router = useRouter()
@@ -27,7 +28,7 @@ export default function Search() {
       <div className='flex flex-col gap-10'>
         <section className='w-full flex flex-col gap-4 max-w-[1280px] mx-auto'>
           <header className='w-full flex justify-between gap-4 align-center'>
-            <ul className='grid grid-cols-5 gap-4 w-full overflow-x-auto pb-4 snap-x'>
+            <ul className='flex gap-4 flex-row flex-wrap w-full justify-center'>
               {data?.map(({ title, thumbnail, link }, i) => {
                 const href = link.split('/').slice(-1).join('/')
                 return (
@@ -49,6 +50,7 @@ export default function Search() {
           </header>
         </section>
       </div>
+      <Footer />
     </main>
   );
 }
