@@ -24,7 +24,7 @@ export default function Home() {
           className="flex gap-4 flex-row flex-wrap w-full justify-center"
         >
           {data?.map(
-            ({ quality: q, title, link, episodeNumber: ep, thumbnail }, i) => (
+            ({ quality: q, title, link, audio, episodeNumber: ep, thumbnail }, i ) => (
               <div
                 key={i}
                 className="group/episode overflow-hidden"
@@ -36,11 +36,16 @@ export default function Home() {
                   <div className="pointer-events-none select-none w-full h-full bg-c_dark_1/60 absolute top-0 left-0 z-5 group-hover/episode:bg-c_dark_1/40 transition-all" />
                   <img
                     src={thumbnail}
-                    className="object-cover w-[100%] h-[100%]"
+                    className="object-cover w-[100%] h-[100%] rounded-md rounded-b-none"
                   />
-                  <span className="absolute top-4 left-2 bg-red-600 uppercase text-xs p-1 rounded-md">
-                    {q}
-                  </span>
+                  <div className="absolute top-4 left-2 flex">
+                    <span className="bg-red-600 uppercase text-xs p-1 rounded-md mr-2">
+                      {q}
+                    </span>
+                    <span className="bg-blue-600 uppercase text-xs p-1 rounded-md">
+                      {audio}
+                    </span>
+                  </div>
                   <header className="absolute bottom-4 left-2 right-2">
                     <p className="text-xs shadow-sm">{ep}</p>
                     <h2 className="text-md shadow-sm">{title}</h2>
