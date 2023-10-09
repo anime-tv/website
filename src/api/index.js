@@ -32,3 +32,10 @@ export async function detailsPage(title, page) {
 
   return resp.json();
 }
+
+export async function detailPageBeta(title) {
+  const url = `https://test-nine-gamma-38.vercel.app/api/episodes?url=https://animes.vision/animes/${title}`
+  const resp = await fetch(url);
+
+  return resp.json();
+}
