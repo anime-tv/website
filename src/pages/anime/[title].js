@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/router";
 
 import Footer from "@/components/Footer/Footer";
@@ -13,25 +13,32 @@ export default function Details() {
   const [data, setData] = useState(null);
   const [dataBeta, setDataBeta] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const episodesPerPage = 35;
+
+  const fetchEpisodeDataBeta = useCallback(
+    (title) => {
+      detailPageBeta(title, currentPage).then((newData) => {
+        setDataBeta(newData);
+      });
+    },
+    [currentPage]
+  );
+
+  const fetchEpisodeData = useCallback((title, page) => {
+    detailsPage(title, page).then((newData) => {
+      setData(newData);
+    });
+  }, []);
 
   useEffect(() => {
     if (router.query.title) {
       fetchEpisodeData(router.query.title, currentPage);
-      fetchEpisodeDataBeta(router.query.title, currentPage);
+      fetchEpisodeDataBeta(router.query.title);
     }
-  }, [router.query.title, currentPage]);
+  }, [router.query.title, currentPage, fetchEpisodeData, fetchEpisodeDataBeta]);
 
-  const fetchEpisodeData = (title, page) => {
-    detailsPage(title, page).then((newData) => {
-      setData(newData);
-    });
-  };
-
-  const fetchEpisodeDataBeta = (title) => {
-    detailPageBeta(title).then((newData) => {
-      setDataBeta(newData);
-    });
-  };
+  const hasNextPage = dataBeta && dataBeta.length === episodesPerPage;
+  const hasPreviousPage = currentPage > 1;
 
   return (
     <main className="flex flex-col min-h-screen text-c_white_1 bg-c_dark_1">
@@ -76,8 +83,21 @@ export default function Details() {
             </div>
           </div>
         )}
-      </section>
 
+        <div className="flex justify-center mt-4">
+          {hasPreviousPage && (
+            <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mr-2" onClick={() => setCurrentPage(currentPage - 1)} >
+              Página Anterior
+            </button>
+          )}
+
+          {hasNextPage && (
+            <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" onClick={() => setCurrentPage(currentPage + 1)} >
+              Próxima Página
+            </button>
+          )}
+        </div>
+      </section>
       <Footer />
     </main>
   );
